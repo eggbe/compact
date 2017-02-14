@@ -1,0 +1,24 @@
+{
+	"name": "eggbe/compactor",
+	"version": "1.0",
+	"type": "library",
+	"keywords": ["data-compact", "compactor"],
+	"description": "Universal data packer and unpacker",
+	"license": "MIT",
+	"authors": [
+		{
+			"name": "hacpaka",
+			"email": "hacpaka@eggbe.com"
+		}
+	],
+	"require": {
+		"php": ">=7.0.0",
+		"eggbe/reglib": "dev-master",
+		"eggbe/prototype": "dev-master"
+	},
+	"autoload": {
+		"psr-4": {
+			"Eggbe\\Compactor\\": "src/"
+		}
+	}
+}
