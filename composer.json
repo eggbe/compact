@@ -13,7 +13,6 @@
 	],
 	"require": {
 		"php": ">=7.0.0",
-		"eggbe/reglib": "dev-master",
 		"eggbe/prototype": "dev-master"
 	},
 	"autoload": {
