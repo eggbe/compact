@@ -101,13 +101,17 @@ class Compactor {
 		}
 
 		if (is_object($data)){
-			if ($data instanceof IPresentable || ($flags & self::CO_ALLOW_ARRAYABLE
-				&& ($data instanceof IArrayable || method_exists($data, 'toArray')))){
+			if ($data instanceof IPresentable) {
+				return [self::DT_OBJECT, get_class($data), self::pack($data->present(), $flags)];
+			}
+
+			if ($flags & self::CO_ALLOW_ARRAYABLE && ($data instanceof IArrayable || method_exists($data, 'toArray'))){
 					return [self::DT_OBJECT, get_class($data), self::pack($data->toArray(), $flags)];
 			}
 
 			throw new \Exception('Unpresentable objects of class ' .  get_class($data) . '!');
 		}
+
 
 		throw new \Exception('Inconvertible ' . gettype($data) . (is_object($data)
 			? (' of type ' . get_class($data)) : null ) . '!');
