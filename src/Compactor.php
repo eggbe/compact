@@ -1,5 +1,5 @@
 <?php
-namespace Eggbe\Compactor;
+namespace Eggbe\Compact;
 
 use \Eggbe\Helper\Arr;
 use \Eggbe\Prototype\IArrayable;
