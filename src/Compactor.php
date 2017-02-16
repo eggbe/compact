@@ -4,6 +4,7 @@ namespace Eggbe\Compact;
 use \Eggbe\Helper\Arr;
 use \Eggbe\Prototype\IArrayable;
 use \Eggbe\Prototype\IRestorable;
+use \Eggbe\Prototype\IPresentable;
 
 class Compactor {
 
@@ -100,8 +101,9 @@ class Compactor {
 		}
 
 		if (is_object($data)){
-			if ($data instanceof IRestorable || ($flags & self::CO_ALLOW_ARRAYABLE && $data instanceof IArrayable)){
-				return [self::DT_OBJECT, get_class($data), self::pack($data->toArray(), $flags)];
+			if ($data instanceof IPresentable || ($flags & self::CO_ALLOW_ARRAYABLE
+				&& ($data instanceof IArrayable || method_exists('toArray', $data)))){
+					return [self::DT_OBJECT, get_class($data), self::pack($data->toArray(), $flags)];
 			}
 
 			throw new \Exception('Unrestorable objects!');
