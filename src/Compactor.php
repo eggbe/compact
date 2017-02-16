@@ -106,7 +106,7 @@ class Compactor {
 					return [self::DT_OBJECT, get_class($data), self::pack($data->toArray(), $flags)];
 			}
 
-			throw new \Exception('Unrestorable objects!');
+			throw new \Exception('Unpresentable objects of class ' .  get_class($data) . '!');
 		}
 
 		throw new \Exception('Inconvertible ' . gettype($data) . (is_object($data)
