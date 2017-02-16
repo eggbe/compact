@@ -2,6 +2,8 @@
 namespace Eggbe\Compact;
 
 use \Eggbe\Helper\Arr;
+use \Eggbe\Helper\Src;
+use \Eggbe\Helper\Str;
 use \Eggbe\Reglib\Reglib;
 
 use \Eggbe\Prototype\IArrayable;
@@ -172,12 +174,19 @@ class Compactor {
 
 		if ($prefix == self::DT_OBJECT){
 			if (!class_exists($class = array_shift($Composed))){
-				if (!Arr::has($Cache, $class) && !is_null($alias = Arr::val(array_filter(array_keys($Aliases),
-					function($value) use ($class) { return strpos($class, $value) !== false; }), 0))){
-						$Cache[$class] = preg_replace('/^' . preg_quote($alias) . '/', $Aliases[$alias], $class);
+				if (!Arr::has($Cache, $class)) {
+					$Cache[$class] = Arr::reg($Aliases, preg_quote($class));
+
+					if (is_null($Cache[$class])) {
+						$Cache[$class] = Arr::reg($Aliases, preg_quote(Src::lns($class)));
+
+						if (!is_null($Cache[$class])) {
+							$Cache[$class] = Str::join('\\', $Cache[$class], Src::rns($class));
+						}
+					}
 				}
 
-				if (!Arr::has($Cache, $class)){
+				if (!Arr::has($Cache, $class) || is_null($Cache[$class])){
 					throw new \Exception('Undefined entity class ' . $class .'!');
 				}
 
