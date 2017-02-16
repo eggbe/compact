@@ -2,6 +2,8 @@
 namespace Eggbe\Compact;
 
 use \Eggbe\Helper\Arr;
+use \Eggbe\Reglib\Reglib;
+
 use \Eggbe\Prototype\IArrayable;
 use \Eggbe\Prototype\IRestorable;
 use \Eggbe\Prototype\IPresentable;
@@ -117,14 +119,21 @@ class Compactor {
 			? (' of type ' . get_class($data)) : null ) . '!');
 	}
 
-
 	/**
 	 * @param array $Composed
+	 * @param array $Aliases
 	 * @return mixed
 	 * @throws \Exception
 	 */
-	public static final function decompact(array $Composed) {
-		$Output = self::unpack($Composed);
+	public static final function decompact(array $Composed, array $Aliases = []) {
+		$Output = self::unpack($Composed, array_filter($Aliases, function(){
+			foreach (func_get_args() as $value){
+				if (!preg_match('/^' . Reglib::NAMESPACE . '$/', $value)){
+					return false;
+				}
+			}
+			return true;
+		}, ARRAY_FILTER_USE_BOTH));
 
 		if (count($Composed) > 0){
 			throw new \Exception('Can\'t decompose the given sequence!');
@@ -135,10 +144,12 @@ class Compactor {
 
 	/**
 	 * @param array $Composed
+	 * @param array $Aliases
+	 * @param array $Cache
 	 * @return mixed
 	 * @throws \Exception
 	 */
-	private static final function unpack(array &$Composed) {
+	private static final function unpack(array &$Composed, array $Aliases = [], array $Cache = []) {
 		if (($prefix  =  (int)array_shift($Composed)) == self::DT_NULL){
 			return null;
 		}
@@ -161,14 +172,23 @@ class Compactor {
 
 		if ($prefix == self::DT_OBJECT){
 			if (!class_exists($class = array_shift($Composed))){
-				throw new \Exception('Undefined entity class ' . $class .'!');
+				if (!Arr::has($Cache, $class) && !is_null($alias = Arr::val(array_filter(array_keys($Aliases),
+					function($value) use ($class) { return strpos($class, $value) !== false; }), 0))){
+						$Cache[$class] = preg_replace('/^' . preg_quote($alias) . '/', $Aliases[$alias], $class);
+				}
+
+				if (!Arr::has($Cache, $class)){
+					throw new \Exception('Undefined entity class ' . $class .'!');
+				}
+
+				$class =  $Cache[$class];
 			}
 
 			if (!is_subclass_of($class, IRestorable::class)){
 				throw new \Exception('Entity class ' . $class .' is not subclass of ' . IRestorable::class . '!');
 			}
 
-			return new $class(self::unpack($Composed));
+			return new $class(self::unpack($Composed, $Aliases, $Cache));
 		}
 
 		if ($prefix == self::DT_ARRAY){
@@ -181,10 +201,12 @@ class Compactor {
 					throw new \Exception('Invalid key!');
 				}
 
-				$Data[$key] = self::unpack($Composed);
+				$Data[$key] = self::unpack($Composed, $Aliases, $Cache);
 			}
 
 			return $Data;
 		}
+
+		throw new \Exception('Unsupported data type!');
 	}
 }
