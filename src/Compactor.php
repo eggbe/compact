@@ -96,7 +96,7 @@ class Compactor {
 
 		if (is_array($data)){
 			return [self::DT_ARRAY, count($data), array_map(function($value) use ($flags) {
-				return self::pack($value, $flags); }, Arr::stretch($data, 2))];
+				return self::pack($value, $flags); }, Arr::stretch($data, 0))];
 		}
 
 		if (is_object($data)){
