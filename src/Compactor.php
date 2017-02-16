@@ -102,7 +102,7 @@ class Compactor {
 
 		if (is_object($data)){
 			if ($data instanceof IPresentable || ($flags & self::CO_ALLOW_ARRAYABLE
-				&& ($data instanceof IArrayable || method_exists('toArray', $data)))){
+				&& ($data instanceof IArrayable || method_exists($data, 'toArray')))){
 					return [self::DT_OBJECT, get_class($data), self::pack($data->toArray(), $flags)];
 			}
 
