@@ -2,7 +2,7 @@
 	"name": "eggbe/compact",
 	"version": "1.0",
 	"type": "library",
-	"keywords": ["data-compact", "compactor", "packer", "unpacker"],
+	"keywords": ["data-compact", "compactor", "packer", "unpacker", "serialization"],
 	"description": "Universal data packer and unpacker",
 	"license": "MIT",
 	"authors": [
