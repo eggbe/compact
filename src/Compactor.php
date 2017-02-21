@@ -194,7 +194,7 @@ class Compactor {
 			}
 
 			if (!is_subclass_of($class, IRestorable::class)){
-				throw new \Exception('Entity class ' . $class .' is not subclass of ' . IRestorable::class . '!');
+				throw new \Exception('Entity class ' . $class .' is not exists or not subclass of ' . IRestorable::class . '!');
 			}
 
 			return new $class(self::unpack($Composed, $Aliases, $Cache));
