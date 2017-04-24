@@ -71,7 +71,7 @@ class Compactor {
 	 * @throws \Exception
 	 */
 	public final static function compact($data, int $flags = self::CO_STRICT): array {
-		return Arr::inline(self::pack($data, $flags));
+		return Arr::inline(self::to($data, $flags));
 	}
 
 	/**
@@ -80,7 +80,7 @@ class Compactor {
 	 * @return array
 	 * @throws \Exception
 	 */
-	private static final function pack($data, int $flags = self::CO_STRICT){
+	private static final function to($data, int $flags = self::CO_STRICT){
 		if (is_null($data)) {
 			return [self::DT_NULL];
 		}
@@ -103,16 +103,16 @@ class Compactor {
 
 		if (is_array($data)){
 			return [self::DT_ARRAY, count($data), array_map(function($value) use ($flags) {
-				return self::pack($value, $flags); }, Arr::stretch($data, 0))];
+				return self::to($value, $flags); }, Arr::stretch($data, 0))];
 		}
 
 		if (is_object($data)){
 			if ($data instanceof IPresentable) {
-				return [self::DT_OBJECT, get_class($data), self::pack($data->present(), $flags)];
+				return [self::DT_OBJECT, get_class($data), self::to($data->present(), $flags)];
 			}
 
 			if ($flags & self::CO_ALLOW_ARRAYABLE && ($data instanceof IArrayable || method_exists($data, 'toArray'))){
-				return [self::DT_OBJECT, get_class($data), self::pack($data->toArray(), $flags)];
+				return [self::DT_OBJECT, get_class($data), self::to($data->toArray(), $flags)];
 			}
 
 			throw new \Exception('Unpresentable objects of class ' .  get_class($data) . '!');
@@ -130,7 +130,7 @@ class Compactor {
 	 * @throws \Exception
 	 */
 	public static final function decompact(array $Composed, AliasMaker $Aliases = null) {
-		$Output = self::unpack($Composed, !is_null($Aliases)
+		$Output = self::from($Composed, !is_null($Aliases)
 			? $Aliases : new AliasMaker());
 
 		if (count($Composed) > 0){
@@ -146,7 +146,7 @@ class Compactor {
 	 * @return mixed
 	 * @throws \Exception
 	 */
-	private static final function unpack(array &$Composed, AliasMaker $Aliases) {
+	private static final function from(array &$Composed, AliasMaker $Aliases) {
 		if (($prefix  =  (int)array_shift($Composed)) == self::DT_NULL){
 			return null;
 		}
@@ -179,7 +179,7 @@ class Compactor {
 				throw new \Exception('Entity class ' . $class .' is not exists or not subclass of ' . IRestorable::class . '!');
 			}
 
-			return new $class(self::unpack($Composed, $Aliases));
+			return new $class(self::from($Composed, $Aliases));
 		}
 
 		if ($prefix == self::DT_ARRAY){
@@ -188,11 +188,11 @@ class Compactor {
 			$size = (int)array_shift($Composed);
 			for ($i = 0; $i < $size; $i++) {
 
-				if (!is_string($key = self::unpack($Composed, $Aliases)) && !is_integer($key)) {
+				if (!is_string($key = self::from($Composed, $Aliases)) && !is_integer($key)) {
 					throw new \Exception('Invalid key!');
 				}
 
-				$Data[$key] = self::unpack($Composed, $Aliases);
+				$Data[$key] = self::from($Composed, $Aliases);
 			}
 
 			return $Data;
