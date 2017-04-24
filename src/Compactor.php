@@ -9,10 +9,12 @@ use \Eggbe\Reglib\Reglib;
 use \Eggbe\Prototype\IArrayable;
 use \Eggbe\Prototype\IRestorable;
 use \Eggbe\Prototype\IPresentable;
+use \Eggbe\Prototype\TUncreatable;
 
 use \Eggbe\Utilities\AliasMaker;
 
 class Compactor {
+	use TUncreatable;
 
 	/**
 	 * @const string
@@ -60,17 +62,16 @@ class Compactor {
 	const CO_ALLOW_ARRAYABLE = 0b0001;
 
 	/**
-	 * const int
-	 */
-	const CO_ALLOW_CALLABLE = 0b0010;
-
-	/**
 	 * @param mixed $data
 	 * @param int $flags
 	 * @return array
 	 * @throws \Exception
 	 */
 	public final static function compact($data, int $flags = self::CO_STRICT): array {
+		if ($flags > self::CO_ALLOW_ARRAYABLE){
+			throw new \Exception('Undefined flags sequence!');
+		}
+
 		return Arr::inline(self::to($data, $flags));
 	}
 
