@@ -44,7 +44,7 @@ The library require that all restorable object implements the ```\Eggbe\Prototyp
 defined in the [Eggbe/Prototype](https://github.com/eggbe/prototype) package. This interface provides an universal way to create 
 an object and fill its with data by the simple implementation of ``IRestorable`` constructor. 
 
-Sometimes it's important to make class overloading during the deserialization process. The second parameter provids the simplest way to do it. 
+Sometimes it's important to make class overloading during the deserialization process. The second parameter of ```Compactor::decompact()``` provids the simplest way to do it. 
 Please, see the [AliasMaker](https://github.com/eggbe/utilities) component documentation for more information.     
 
 ## Authors
