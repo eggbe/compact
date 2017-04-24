@@ -30,8 +30,9 @@ In the strict mode the library requires that all objects implements the ```\Eggb
 defined in the [Eggbe/Prototype](https://github.com/eggbe/prototype) package. This interface provides an universal way to present an object as an array 
 by the simple implementation of ``IPresentable::present()`` method. 
 
-Otherwise if ```Compactor::CO_ALLOW_ARRAYABLE``` flag is provided and an object don't implement the ```\Eggbe\Prototype\IPresentable``` interface 
+In other case when the ```Compactor::CO_ALLOW_ARRAYABLE``` flag is provided and an object don't implement the ```\Eggbe\Prototype\IPresentable``` interface 
 then the library tries to convert this object into an array via toArray method. If method don't exists in the object implementation an exception will be thrown
+
 
 
 ## Authors
