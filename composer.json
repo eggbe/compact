@@ -13,7 +13,8 @@
 	],
 	"require": {
 		"php": ">=7.0.0",
-		"eggbe/prototype": "dev-master"
+		"eggbe/prototype": "dev-master",
+		"eggbe/utilities": "dev-master"
 	},
 	"autoload": {
 		"psr-4": {
