@@ -1,11 +1,12 @@
 ## Introduction
 This is the lightweight and high-performance library provides the simple way 
-to transfer any objects or arrays between two applications.        
+to transfer any objects or arrays between two applications.
 
 
 ## Requirements
 * PHP >= 7.0.0
 * [Eggbe/Helpers](https://github.com/eggbe/helpers)
+* [Eggbe/Prototype](https://github.com/eggbe/prototype)
 
 
 ## Install
@@ -19,7 +20,7 @@ composer require eggbe/compact
 Now we can use the library features anywhere in the code:
 
 ```php
-$SerializedData = Compactor::compact($SomeDataArray, $FlagsCombination);
+$SerializedDataArray = Compactor::compact($OriginalDataArray, $FlagsCombination);
 ```
 
 The binary flags combination define the library behavior in contentious cases. 
@@ -31,9 +32,20 @@ defined in the [Eggbe/Prototype](https://github.com/eggbe/prototype) package. Th
 by the simple implementation of ``IPresentable::present()`` method. 
 
 In other case when the ```Compactor::CO_ALLOW_ARRAYABLE``` flag is provided and an object don't implement the ```\Eggbe\Prototype\IPresentable``` interface 
-then the library tries to convert this object into an array via toArray method. If method don't exists in the object implementation an exception will be thrown
+then the library tries to convert this object into an array via ```toArray()``` method. If method don't exists in the object implementation an exception will be thrown.
 
+The following code is return data back from the serialized representation:
 
+```php
+$OriginalDataArray = Compactor::decompact($SerializedDataArray, $AliasMaker);
+```
+
+The library require that all restorable object implements the ```\Eggbe\Prototype\IRestorable``` interface 
+defined in the [Eggbe/Prototype](https://github.com/eggbe/prototype) package. This interface provides an universal way to create 
+an object and fill its with data by the simple implementation of ``IRestorable`` constructor. 
+
+Sometimes it's important to make class overloading during the deserialization process. The second parameter provids the simplest way to do it. 
+Please, see the [AliasMaker](https://github.com/eggbe/utilities) component documentation for more information.     
 
 ## Authors
 Made with love at [Eggbe](http://eggbe.com).
