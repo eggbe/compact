@@ -16,7 +16,7 @@ composer require eggbe/compact
 ```
 
 ## Usage
-Now we can use Eggbe/Compact anywhere in the code:
+Now we can use the library features anywhere in the code:
 
 ```php
 $SerializedData = Compactor::compact($SomeDataArray, $FlagsCombination);
