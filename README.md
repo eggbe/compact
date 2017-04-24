@@ -32,7 +32,7 @@ defined in the [Eggbe/Prototype](https://github.com/eggbe/prototype) package. Th
 by the simple implementation of ``IPresentable::present()`` method. 
 
 In other case when the ```Compactor::CO_ALLOW_ARRAYABLE``` flag is provided and an object don't implement the ```\Eggbe\Prototype\IPresentable``` interface 
-then the library tries to convert this object into an array via ```toArray()``` method. If method don't exists in the object implementation an exception will be thrown.
+then the library tries to convert this object into an array via ```toArray()``` method. If this method don't exists in the object implementation an exception will be thrown.
 
 The following code is return data back from the serialized representation:
 
