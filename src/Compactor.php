@@ -10,6 +10,8 @@ use \Eggbe\Prototype\IArrayable;
 use \Eggbe\Prototype\IRestorable;
 use \Eggbe\Prototype\IPresentable;
 
+use \Eggbe\Utilities\AliasMaker;
+
 class Compactor {
 
 	/**
@@ -123,19 +125,13 @@ class Compactor {
 
 	/**
 	 * @param array $Composed
-	 * @param array $Aliases
+	 * @param AliasMaker $Aliases
 	 * @return mixed
 	 * @throws \Exception
 	 */
-	public static final function decompact(array $Composed, array $Aliases = []) {
-		$Output = self::unpack($Composed, array_filter($Aliases, function(){
-			foreach (func_get_args() as $value){
-				if (!preg_match('/^' . Reglib::NAMESPACE . '$/', $value)){
-					return false;
-				}
-			}
-			return true;
-		}, ARRAY_FILTER_USE_BOTH));
+	public static final function decompact(array $Composed, AliasMaker $Aliases = null) {
+		$Output = self::unpack($Composed, !is_null($Aliases)
+			? $Aliases : new AliasMaker());
 
 		if (count($Composed) > 0){
 			throw new \Exception('Can\'t decompose the given sequence!');
@@ -146,12 +142,11 @@ class Compactor {
 
 	/**
 	 * @param array $Composed
-	 * @param array $Aliases
-	 * @param array $Cache
+	 * @param AliasMaker $Aliases
 	 * @return mixed
 	 * @throws \Exception
 	 */
-	private static final function unpack(array &$Composed, array $Aliases = [], array $Cache = []) {
+	private static final function unpack(array &$Composed, AliasMaker $Aliases) {
 		if (($prefix  =  (int)array_shift($Composed)) == self::DT_NULL){
 			return null;
 		}
@@ -174,30 +169,17 @@ class Compactor {
 
 		if ($prefix == self::DT_OBJECT){
 			if (!class_exists($class = array_shift($Composed))){
-				if (!Arr::has($Cache, $class)) {
-					$Cache[$class] = Arr::reg($Aliases, preg_quote($class));
 
-					if (is_null($Cache[$class])) {
-						$Cache[$class] = Arr::reg($Aliases, preg_quote(Src::lns($class)));
-
-						if (!is_null($Cache[$class])) {
-							$Cache[$class] = Str::join('\\', $Cache[$class], Src::rns($class));
-						}
-					}
-				}
-
-				if (!Arr::has($Cache, $class) || is_null($Cache[$class])){
+				if (!class_exists($class = $Aliases->alike($class))){
 					throw new \Exception('Undefined entity class ' . $class .'!');
 				}
-
-				$class =  $Cache[$class];
 			}
 
 			if (!is_subclass_of($class, IRestorable::class)){
 				throw new \Exception('Entity class ' . $class .' is not exists or not subclass of ' . IRestorable::class . '!');
 			}
 
-			return new $class(self::unpack($Composed, $Aliases, $Cache));
+			return new $class(self::unpack($Composed, $Aliases));
 		}
 
 		if ($prefix == self::DT_ARRAY){
@@ -206,11 +188,11 @@ class Compactor {
 			$size = (int)array_shift($Composed);
 			for ($i = 0; $i < $size; $i++) {
 
-				if (!is_string($key = self::unpack($Composed)) && !is_integer($key)) {
+				if (!is_string($key = self::unpack($Composed, $Aliases)) && !is_integer($key)) {
 					throw new \Exception('Invalid key!');
 				}
 
-				$Data[$key] = self::unpack($Composed, $Aliases, $Cache);
+				$Data[$key] = self::unpack($Composed, $Aliases);
 			}
 
 			return $Data;

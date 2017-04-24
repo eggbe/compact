@@ -1,6 +1,12 @@
+* 1.2 (2017-04-24)
+
+  * added dependency Eggbe/Utilities
+  * aliases functionality now works via AliasMaker
+
+
 * 1.1 (2017-02-16)
 
-  * Added support for aliases
+  * added support for aliases
 
 
 * 1.0
