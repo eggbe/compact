@@ -23,7 +23,8 @@ $SerializedData = Compactor::compact($SomeDataArray, $FlagsCombination);
 ```
 
 The flags combination define the library behavior in contentious cases. 
-Currently only two flags are supported: ```Compactor::CO_STRICT``` and ```Compactor::CO_ALLOW_ARRAYABLE```.   
+Currently only two flags are supported: ```Compactor::CO_STRICT``` and ```Compactor::CO_ALLOW_ARRAYABLE```. 
+The ```Compactor::CO_STRICT``` flag is set by default.    
 
 In the strict mode the library requires that all objects implements the ```\Eggbe\Prototype\IPresentable``` interface. 
 This interface provides an universal way to present an object as an array and defined in the [Eggbe/Prototype](https://github.com/eggbe/prototype) package.
