@@ -55,4 +55,4 @@ We always welcome your feedback at [github@eggbe.com](mailto:github@eggbe.com).
 
 
 ## License
-This package is released under the [MIT license](https://github.com/eggbe/client-bridge/blob/master/LICENSE).
+This package is released under the [MIT license](https://github.com/eggbe/compact/blob/master/LICENSE).
