@@ -40,7 +40,7 @@ The following code is return data back from the serialized representation:
 $OriginalDataArray = Compactor::decompact($SerializedDataArray, $AliasMaker);
 ```
 
-The library require that all restorable object implement the ```\Eggbe\Prototype\IRestorable``` interface 
+The library require that all restorable objects implement the ```\Eggbe\Prototype\IRestorable``` interface 
 defined in the [Eggbe/Prototype](https://github.com/eggbe/prototype) package. This interface provides an universal way to create 
 an object and fill its with data by the simple implementation of ``IRestorable`` constructor. 
 
