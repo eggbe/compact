@@ -26,10 +26,11 @@ The flags combination define the library behavior in contentious cases.
 Currently only two flags are supported: ```Compactor::CO_STRICT``` and ```Compactor::CO_ALLOW_ARRAYABLE```. 
 The ```Compactor::CO_STRICT``` flag is always set by default.    
 
-In the strict mode the library requires that all objects implements the ```\Eggbe\Prototype\IPresentable``` interface. 
-This interface provides an universal way to present an object as an array and defined in the [Eggbe/Prototype](https://github.com/eggbe/prototype) package.
+In the strict mode the library requires that all objects implements the ```\Eggbe\Prototype\IPresentable``` interface 
+defined in the [Eggbe/Prototype](https://github.com/eggbe/prototype) package. This interface provides an universal way to present an object as an array 
+by the simple implementation of ``present()`` method. 
 
-Otherwise if ```CO_ALLOW_ARRAYABLE``` flag is provided  and an object don't implement the ```\Eggbe\Prototype\IPresentable``` interface 
+Otherwise if ```CO_ALLOW_ARRAYABLE``` flag is provided and an object don't implement the ```\Eggbe\Prototype\IPresentable``` interface 
 the library tries to convert an object into an array via toArray method. If the object implementation don't include toArray method 
 an exception will be thrown.
 
