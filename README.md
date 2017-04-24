@@ -27,7 +27,7 @@ The binary flags combination define the library behavior in contentious cases.
 Currently only two flags are supported: ```Compactor::CO_STRICT``` and ```Compactor::CO_ALLOW_ARRAYABLE```. 
 The ```Compactor::CO_STRICT``` flag is always set by default.    
 
-In the strict mode the library requires that all objects have to implement the ```\Eggbe\Prototype\IPresentable``` interface 
+In the strict mode the library requires that all objects implement the ```\Eggbe\Prototype\IPresentable``` interface 
 defined in the [Eggbe/Prototype](https://github.com/eggbe/prototype) package. This interface provides an universal way to present an object as an array 
 by the simple implementation of ``IPresentable::present()`` method. 
 
@@ -40,7 +40,7 @@ The following code is return data back from the serialized representation:
 $OriginalDataArray = Compactor::decompact($SerializedDataArray, $AliasMaker);
 ```
 
-The library require that all restorable object have to implement the ```\Eggbe\Prototype\IRestorable``` interface 
+The library require that all restorable object implement the ```\Eggbe\Prototype\IRestorable``` interface 
 defined in the [Eggbe/Prototype](https://github.com/eggbe/prototype) package. This interface provides an universal way to create 
 an object and fill its with data by the simple implementation of ``IRestorable`` constructor. 
 
