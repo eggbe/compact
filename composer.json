@@ -13,6 +13,7 @@
 	],
 	"require": {
 		"php": ">=7.0.0",
+		"eggbe/helpers": "dev-master",
 		"eggbe/prototype": "dev-master",
 		"eggbe/utilities": "dev-master"
 	},

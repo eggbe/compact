@@ -7,6 +7,7 @@ to transfer any objects or arrays between two applications.
 * PHP >= 7.0.0
 * [Eggbe/Helpers](https://github.com/eggbe/helpers)
 * [Eggbe/Prototype](https://github.com/eggbe/prototype)
+* [Eggbe/Utilities](https://github.com/eggbe/utilities)
 
 
 ## Install
