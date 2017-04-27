@@ -135,7 +135,7 @@ class Compactor {
 			? $Aliases : new AliasMaker());
 
 		if (count($Composed) > 0){
-			throw new \Exception('Can\'t decompose the given sequence!');
+			throw new \Exception('Unexpected data break!');
 		}
 
 		return $Output;
