@@ -11,7 +11,7 @@ use \Eggbe\Prototype\IRestorable;
 use \Eggbe\Prototype\IPresentable;
 use \Eggbe\Prototype\TUncreatable;
 
-use \Eggbe\Utilities\AliasMaker;
+use \Eggbe\Utilities\Aliaser;
 
 class Compactor {
 	use TUncreatable;
@@ -126,13 +126,13 @@ class Compactor {
 
 	/**
 	 * @param array $Composed
-	 * @param AliasMaker $Aliases
+	 * @param Aliaser $Aliases
 	 * @return mixed
 	 * @throws \Exception
 	 */
-	public static final function decompact(array $Composed, AliasMaker $Aliases = null) {
+	public static final function decompact(array $Composed, Aliaser $Aliases = null) {
 		$Output = self::from($Composed, !is_null($Aliases)
-			? $Aliases : new AliasMaker());
+			? $Aliases : new Aliaser());
 
 		if (count($Composed) > 0){
 			throw new \Exception('Unexpected data break!');
@@ -143,11 +143,11 @@ class Compactor {
 
 	/**
 	 * @param array $Composed
-	 * @param AliasMaker $Aliases
+	 * @param Aliaser $Aliases
 	 * @return mixed
 	 * @throws \Exception
 	 */
-	private static final function from(array &$Composed, AliasMaker $Aliases) {
+	private static final function from(array &$Composed, Aliaser $Aliases) {
 		if (($prefix  =  (int)array_shift($Composed)) == self::DT_NULL){
 			return null;
 		}

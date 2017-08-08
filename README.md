@@ -11,7 +11,7 @@ to transfer any objects or arrays between two applications.
 
 
 ## Install
-Here's the simpler way to start using Eggbe/Compact via [composer](http://getcomposer.org):
+Here's the simpler way to install the Eggbe/Compact package via [composer](http://getcomposer.org):
 
 ```bash
 composer require eggbe/compact
@@ -38,7 +38,7 @@ then the library tries to convert this object into an array via ```toArray()``` 
 The following code is return data back from the serialized representation:
 
 ```php
-$OriginalDataArray = Compactor::decompact($SerializedDataArray, $AliasMaker);
+$OriginalDataArray = Compactor::decompact($SerializedDataArray, $Aliaser);
 ```
 
 The library requires that all restorable objects implement the ```\Eggbe\Prototype\IRestorable``` interface 
@@ -46,7 +46,7 @@ defined in the [Eggbe/Prototype](https://github.com/eggbe/prototype) package. Th
 an object and fill its with data by the simple implementation of ```IRestorable``` constructor. 
 
 Sometimes it's important to make class overloading during the deserialization process. The second parameter of the ```Compactor::decompact()``` provids the simplest way to do it. 
-Please, see the [AliasMaker](https://github.com/eggbe/utilities) component documentation for more information.     
+Please, see the [Aliaser](https://github.com/eggbe/utilities) component documentation for more information.     
 
 ## Authors
 Made with love at [Eggbe](http://eggbe.com).
