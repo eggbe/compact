@@ -4,10 +4,10 @@ to transfer any objects or arrays between two applications.
 
 
 ## Requirements
-* PHP >= 7.0.0
+* PHP >= 7.2.0
 * [Eggbe/Helpers](https://github.com/eggbe/helpers)
-* [Eggbe/Prototype](https://github.com/eggbe/prototype)
 * [Eggbe/Utilities](https://github.com/eggbe/utilities)
+* [Able/Prototype](https://github.com/phpable/prototypes)
 
 
 ## Install
@@ -28,8 +28,8 @@ The binary flags combination define the library behavior in contentious cases.
 Currently only two flags are supported: ```Compactor::CO_STRICT``` and ```Compactor::CO_ALLOW_ARRAYABLE```. 
 The ```Compactor::CO_STRICT``` flag is always set by default.    
 
-In the strict mode the library requires that all objects implement the ```\Eggbe\Prototype\IPresentable``` interface 
-defined in the [Eggbe/Prototype](https://github.com/eggbe/prototype) package. This interface provides an universal way to present an object as an array 
+In the strict mode the library requires that all objects implement the ```\Able\Prototypes\IPresentable``` interface 
+defined in the [Able/Prototypes](https://github.com/phpable/prototypes) package. This interface provides an universal way to present an object as an array 
 by the simple implementation of ``IPresentable::present()`` method. 
 
 In other case when the ```Compactor::CO_ALLOW_ARRAYABLE``` flag is provided and an object don't implement the ```\Eggbe\Prototype\IPresentable``` interface 
@@ -42,7 +42,7 @@ $OriginalDataArray = Compactor::decompact($SerializedDataArray, $Aliaser);
 ```
 
 The library requires that all restorable objects implement the ```\Eggbe\Prototype\IRestorable``` interface 
-defined in the [Eggbe/Prototype](https://github.com/eggbe/prototype) package. This interface provides an universal way to create 
+defined in the [Able/Prototypes](https://github.com/phpable/prototypes) package. This interface provides an universal way to create 
 an object and fill its with data by the simple implementation of ```IRestorable``` constructor. 
 
 Sometimes it's important to make class overloading during the deserialization process. The second parameter of the ```Compactor::decompact()``` provids the simplest way to do it. 

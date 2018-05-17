@@ -1,9 +1,9 @@
 {
 	"name": "eggbe/compact",
-	"version": "1.3",
+	"version": "1.4",
 	"type": "library",
-	"keywords": ["data-compact", "compactor", "packer", "unpacker", "serialization"],
-	"description": "Universal data packer and unpacker",
+	"keywords": ["compactor", "packer", "unpacker", "serialization"],
+	"description": "Universal object packer and unpacker",
 	"license": "MIT",
 	"authors": [
 		{
@@ -12,9 +12,9 @@
 		}
 	],
 	"require": {
-		"php": ">=7.0.0",
+		"php": ">=7.2.0",
+		"able/prototypes": "dev-master",
 		"eggbe/helpers": "dev-master",
-		"eggbe/prototype": "dev-master",
 		"eggbe/utilities": "dev-master"
 	},
 	"autoload": {
