@@ -6,10 +6,10 @@ use \Eggbe\Helper\Src;
 use \Eggbe\Helper\Str;
 use \Eggbe\Reglib\Reglib;
 
-use \Eggbe\Prototype\IArrayable;
-use \Eggbe\Prototype\IRestorable;
-use \Eggbe\Prototype\IPresentable;
-use \Eggbe\Prototype\TUncreatable;
+use \Able\Prototypes\IArrayable;
+use \Able\Prototypes\IRestorable;
+use \Able\Prototypes\IPresentable;
+use \Able\Prototypes\TUncreatable;
 
 use \Eggbe\Utilities\Aliaser;
 

@@ -32,7 +32,7 @@ In the strict mode the library requires that all objects implement the ```\Able\
 defined in the [Able/Prototypes](https://github.com/phpable/prototypes) package. This interface provides an universal way to present an object as an array 
 by the simple implementation of ``IPresentable::present()`` method. 
 
-In other case when the ```Compactor::CO_ALLOW_ARRAYABLE``` flag is provided and an object don't implement the ```\Eggbe\Prototype\IPresentable``` interface 
+In other case when the ```Compactor::CO_ALLOW_ARRAYABLE``` flag is provided and an object don't implement the ```\Able\Prototypes\IPresentable``` interface 
 then the library tries to convert this object into an array via ```toArray()``` method. If this method don't exists an exception will be thrown.
 
 The following code is return data back from the serialized representation:
@@ -41,7 +41,7 @@ The following code is return data back from the serialized representation:
 $OriginalDataArray = Compactor::decompact($SerializedDataArray, $Aliaser);
 ```
 
-The library requires that all restorable objects implement the ```\Eggbe\Prototype\IRestorable``` interface 
+The library requires that all restorable objects implement the ```\Able\Prototypes\IRestorable``` interface 
 defined in the [Able/Prototypes](https://github.com/phpable/prototypes) package. This interface provides an universal way to create 
 an object and fill its with data by the simple implementation of ```IRestorable``` constructor. 
 
