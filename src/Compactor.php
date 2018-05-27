@@ -4,7 +4,6 @@ namespace Eggbe\Compact;
 use \Eggbe\Helper\Arr;
 use \Eggbe\Helper\Src;
 use \Eggbe\Helper\Str;
-use \Eggbe\Reglib\Reglib;
 
 use \Able\Prototypes\IArrayable;
 use \Able\Prototypes\IRestorable;
