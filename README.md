@@ -5,8 +5,8 @@ to transfer any objects or arrays between two applications.
 
 ## Requirements
 * PHP >= 7.2.0
-* [Eggbe/Helpers](https://github.com/eggbe/helpers)
 * [Eggbe/Utilities](https://github.com/eggbe/utilities)
+* [Able/Helpers](https://github.com/eggbe/helpers)
 * [Able/Prototype](https://github.com/phpable/prototypes)
 
 

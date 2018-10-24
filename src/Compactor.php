@@ -1,9 +1,9 @@
 <?php
 namespace Eggbe\Compact;
 
-use \Eggbe\Helper\Arr;
-use \Eggbe\Helper\Src;
-use \Eggbe\Helper\Str;
+use \Able\Helpers\Arr;
+use \Able\Helpers\Src;
+use \Able\Helpers\Str;
 
 use \Able\Prototypes\IArrayable;
 use \Able\Prototypes\IRestorable;
@@ -71,7 +71,7 @@ class Compactor {
 			throw new \Exception('Undefined flags sequence!');
 		}
 
-		return Arr::inline(self::to($data, $flags));
+		return Arr::simplify(self::to($data, $flags));
 	}
 
 	/**
@@ -103,7 +103,7 @@ class Compactor {
 
 		if (is_array($data)){
 			return [self::DT_ARRAY, count($data), array_map(function($value) use ($flags) {
-				return self::to($value, $flags); }, Arr::stretch($data, 0))];
+				return self::to($value, $flags); }, self::stretch($data, 0))];
 		}
 
 		if (is_object($data)){
@@ -199,5 +199,16 @@ class Compactor {
 		}
 
 		throw new \Exception('Unsupported data type!');
+	}
+
+	/**
+	 * @param array $Source
+	 * @param int depth
+	 * @return array
+	 */
+	private static final function stretch(array $Source, $depth = -1){
+		return count($Source) > 0 ? array_map(function($value) use ($depth) { return is_array($value) && $depth != 0 ? self::stretch($value,
+			--$depth) : $value; }, count($Source) > 1 ? Arr::ksort(array_combine(range(0, $size = (count($Source) * 2)  - 1, 2), array_keys($Source))
+				+ array_combine(range(1, $size, 2), array_values($Source))) : [array_keys($Source)[0], array_values($Source)[0]]) : $Source;
 	}
 }

@@ -14,7 +14,7 @@
 	"require": {
 		"php": ">=7.2.0",
 		"able/prototypes": "dev-master",
-		"eggbe/helpers": "dev-master",
+		"able/helpers": "dev-master",
 		"eggbe/utilities": "dev-master"
 	},
 	"autoload": {
