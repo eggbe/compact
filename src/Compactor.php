@@ -203,12 +203,21 @@ class Compactor {
 
 	/**
 	 * @param array $Source
+	 * @return array
+	 */
+	public static final function ksort(array $Source): array {
+		return ksort($Source) ? $Source : [];
+	}
+
+
+	/**
+	 * @param array $Source
 	 * @param int depth
 	 * @return array
 	 */
 	private static final function stretch(array $Source, $depth = -1){
 		return count($Source) > 0 ? array_map(function($value) use ($depth) { return is_array($value) && $depth != 0 ? self::stretch($value,
-			--$depth) : $value; }, count($Source) > 1 ? Arr::ksort(array_combine(range(0, $size = (count($Source) * 2)  - 1, 2), array_keys($Source))
+			--$depth) : $value; }, count($Source) > 1 ? self::ksort(array_combine(range(0, $size = (count($Source) * 2)  - 1, 2), array_keys($Source))
 				+ array_combine(range(1, $size, 2), array_values($Source))) : [array_keys($Source)[0], array_values($Source)[0]]) : $Source;
 	}
 }
