@@ -1,6 +1,5 @@
 {
 	"name": "eggbe/compact",
-	"version": "1.4",
 	"type": "library",
 	"keywords": ["compactor", "packer", "unpacker", "serialization"],
 	"description": "Universal object packer and unpacker",
@@ -13,6 +12,7 @@
 	],
 	"require": {
 		"php": ">=7.2.0",
+		"able/statics": "1.0.*",
 		"able/helpers": "dev-master",
 		"able/prototypes": "dev-master",
 		"eggbe/utilities": "dev-master"

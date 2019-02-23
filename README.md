@@ -48,12 +48,5 @@ an object and fill its with data by the simple implementation of ```IRestorable`
 Sometimes it's important to make class overloading during the deserialization process. The second parameter of the ```Compactor::decompact()``` provids the simplest way to do it. 
 Please, see the [Aliaser](https://github.com/eggbe/utilities) component documentation for more information.     
 
-## Authors
-Made with love at [Eggbe](http://eggbe.com).
-
-## Feedback 
-We always welcome your feedback at [github@eggbe.com](mailto:github@eggbe.com).
-
-
 ## License
 This package is released under the [MIT license](https://github.com/eggbe/compact/blob/master/LICENSE).

@@ -8,12 +8,13 @@ use \Able\Helpers\Str;
 use \Able\Prototypes\IArrayable;
 use \Able\Prototypes\IRestorable;
 use \Able\Prototypes\IPresentable;
-use \Able\Prototypes\TUncreatable;
+
+use \Able\Statics\TStatic;
 
 use \Eggbe\Utilities\Aliaser;
 
 class Compactor {
-	use TUncreatable;
+	use TStatic;
 
 	/**
 	 * @const string
