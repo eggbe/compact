@@ -12,6 +12,7 @@ use \Able\Prototypes\IPresentable;
 use \Able\Statics\TStatic;
 
 use \Eggbe\Utilities\Aliaser;
+use \Exception;
 
 class Compactor {
 	use TStatic;
@@ -65,11 +66,12 @@ class Compactor {
 	 * @param mixed $data
 	 * @param int $flags
 	 * @return array
-	 * @throws \Exception
+	 *
+	 * @throws Exception
 	 */
 	public final static function compact($data, int $flags = self::CO_STRICT): array {
 		if ($flags > self::CO_ALLOW_ARRAYABLE){
-			throw new \Exception('Undefined flags sequence!');
+			throw new Exception('Undefined flags sequence!');
 		}
 
 		return Arr::simplify(self::to($data, $flags));
@@ -79,9 +81,10 @@ class Compactor {
 	 * @param $data
 	 * @param int $flags
 	 * @return array
-	 * @throws \Exception
+	 *
+	 * @throws Exception
 	 */
-	private static final function to($data, int $flags = self::CO_STRICT){
+	private static function to($data, int $flags = self::CO_STRICT): array{
 		if (is_null($data)) {
 			return [self::DT_NULL];
 		}
@@ -116,11 +119,11 @@ class Compactor {
 				return [self::DT_OBJECT, get_class($data), self::to($data->toArray(), $flags)];
 			}
 
-			throw new \Exception('Unpresentable objects of class ' .  get_class($data) . '!');
+			throw new Exception('Unpresentable objects of class ' .  get_class($data) . '!');
 		}
 
 
-		throw new \Exception('Inconvertible ' . gettype($data) . (is_object($data)
+		throw new Exception('Inconvertible ' . gettype($data) . (is_object($data)
 			? (' of type ' . get_class($data)) : null ) . '!');
 	}
 
@@ -128,14 +131,15 @@ class Compactor {
 	 * @param array $Composed
 	 * @param Aliaser $Aliases
 	 * @return mixed
-	 * @throws \Exception
+	 *
+	 * @throws Exception
 	 */
 	public static final function decompact(array $Composed, Aliaser $Aliases = null) {
 		$Output = self::from($Composed, !is_null($Aliases)
 			? $Aliases : new Aliaser());
 
 		if (count($Composed) > 0){
-			throw new \Exception('Unexpected data break!');
+			throw new Exception('Unexpected data break!');
 		}
 
 		return $Output;
@@ -145,9 +149,9 @@ class Compactor {
 	 * @param array $Composed
 	 * @param Aliaser $Aliases
 	 * @return mixed
-	 * @throws \Exception
+	 * @throws Exception
 	 */
-	private static final function from(array &$Composed, Aliaser $Aliases) {
+	private static function from(array &$Composed, Aliaser $Aliases) {
 		if (($prefix  =  (int)array_shift($Composed)) == self::DT_NULL){
 			return null;
 		}
@@ -172,12 +176,12 @@ class Compactor {
 			if (!class_exists($class = array_shift($Composed))){
 
 				if (!class_exists($class = $Aliases->alike($class))){
-					throw new \Exception('Undefined entity class ' . $class .'!');
+					throw new Exception('Undefined entity class ' . $class .'!');
 				}
 			}
 
 			if (!is_subclass_of($class, IRestorable::class)){
-				throw new \Exception('Entity class ' . $class .' is not exists or not subclass of ' . IRestorable::class . '!');
+				throw new Exception('Entity class ' . $class .' is not exists or not subclass of ' . IRestorable::class . '!');
 			}
 
 			return new $class(self::from($Composed, $Aliases));
@@ -190,7 +194,7 @@ class Compactor {
 			for ($i = 0; $i < $size; $i++) {
 
 				if (!is_string($key = self::from($Composed, $Aliases)) && !is_integer($key)) {
-					throw new \Exception('Invalid key!');
+					throw new Exception('Invalid key!');
 				}
 
 				$Data[$key] = self::from($Composed, $Aliases);
@@ -199,7 +203,7 @@ class Compactor {
 			return $Data;
 		}
 
-		throw new \Exception('Unsupported data type!');
+		throw new Exception('Unsupported data type!');
 	}
 
 	/**
@@ -216,7 +220,7 @@ class Compactor {
 	 * @param int depth
 	 * @return array
 	 */
-	private static final function stretch(array $Source, $depth = -1){
+	private static function stretch(array $Source, $depth = -1){
 		return count($Source) > 0 ? array_map(function($value) use ($depth) { return is_array($value) && $depth != 0 ? self::stretch($value,
 			--$depth) : $value; }, count($Source) > 1 ? self::ksort(array_combine(range(0, $size = (count($Source) * 2)  - 1, 2), array_keys($Source))
 				+ array_combine(range(1, $size, 2), array_values($Source))) : [array_keys($Source)[0], array_values($Source)[0]]) : $Source;
